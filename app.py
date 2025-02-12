@@ -6,6 +6,9 @@ import plotly.express as px
 # Load the dataset
 df = pd.read_csv('vehicles_us.csv')
 
+fig = px.bar(df, x='type', y='price')
+fig.show()
+
 st.dataframe(df, hide_index=True)
 
 
