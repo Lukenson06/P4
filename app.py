@@ -2,9 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-df = pd.read_csv('C:\Users\luken\Downloads\vehicles_us.csv')
+df = pd.read_csv('C:\\Users\luken\\Downloads\\vehicles_us.csv')
 print(df.head())
-
 
 # Header
 st.header("Car Sales Dashboard")
