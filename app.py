@@ -2,39 +2,27 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-
-# Load the dataset
 df = pd.read_csv('vehicles_us.csv')
-
-fig = px.bar(df, x='type', y='price')
-fig.show()
-
-st.dataframe(df, hide_index=True)
+print(df.head())
 
 
-# Add header
-st.header("Vehicle Data Dashboard")
+# Header
+st.header("Car Sales Dashboard")
 
-# Display data
-st.write("This dashboard shows some exploratory data analysis of the vehicles in the dataset.")
+# Plotly Histogram
+hist_fig = px.histogram(df, x='condition', title='Distribution of Car Condition')
+st.plotly_chart(hist_fig)
 
+# Plotly Scatter Plot
+scatter_fig = px.scatter(df, x='price', y='model_year', color='condition', title='Price vs Model Year')
+st.plotly_chart(scatter_fig)
 
-
-
-# Add histogram
-fig_histogram = px.histogram(df, x='price', title= "Vehicle value") 
-st.plotly_chart(fig_histogram)
-
-# Add scatter plot
-fig_scatter = px.scatter(df, x='odometer', y='price', title='Odometer vs. Vehicle Price')
-st.plotly_chart(fig_scatter)
-
-# Add checkbox
-show_expensive_cars = st.checkbox('Show only cars priced above $20,000')
-
-if show_expensive_cars:
-    filtered_df = df[df['price'] > 20000]
+# Checkbox to filter data
+if st.checkbox('Show only cars newer than 2018'):
+    filtered_df = df[df['model_year'] > 2018]
 else:
     filtered_df = df
 
-st.write(filtered_df)
+# Display filtered scatter plot
+scatter_fig_filtered = px.scatter(filtered_df, x='price', y='model_year', color='condition', title='Filtered Price vs Model Year')
+st.plotly_chart(scatter_fig_filtered)
